@@ -1,25 +1,22 @@
 {% extends 'base.html' %}
 {% load url from future %}
-{% block content %}
-<h1>This is the login page</h1>
-<div>
- <h1>Third-party authentication demo</h1>
-
+{% block login %}
  <p>
    <ul>
    {% if user and not user.is_anonymous %}
      <li>
-       <a>Hello {{ user.get_full_name|default:user.username }}!</a>
+       <span class='navbar-right'>Hello {{ user.get_full_name|default:user.username }}!</span>
      </li>
      <li>
-       <a href="{% url 'auth:logout' %}?next={{ request.path }}">Logout</a>
+       <a href="{% url 'auth:logout' %}?next={{ request.path }}">
+           <button type="submit" class="btn btn-success navbar-right">Sign out</button>
+       </a>
      </li>
    {% else %}
      <li>
-       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">Login with Facebook</a>
-     </li>
-     <li>
-       <a href="{% url 'social:begin' 'twitter' %}?next={{ request.path }}">Login with Twitter</a>
+       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">
+           <button type="submit" class="btn btn-success navbar-right">Sign in</button>
+       </a>
      </li>
    {% endif %}
    </ul>

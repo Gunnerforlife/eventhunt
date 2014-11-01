@@ -69,12 +69,31 @@ WSGI_APPLICATION = 'eventhunt.wsgi.application'
 AUTHENTICATION_BACKENDS = (
    'social.backends.facebook.FacebookOAuth2',
    'social.backends.twitter.TwitterOAuth',
+   'social.backends.email.EmailAuth',
    'django.contrib.auth.backends.ModelBackend',
 )
 
-LOGIN_URL          = '/login-form/'
-LOGIN_REDIRECT_URL = '/logged-in/'
-LOGIN_ERROR_URL    = '/login-error/'
+SOCIAL_AUTH_PIPELINE = (
+    'social.pipeline.social_auth.social_details',
+    'social.pipeline.social_auth.social_uid',
+    'social.pipeline.social_auth.auth_allowed',
+    'social.pipeline.social_auth.social_user',
+    'social.pipeline.user.get_username',
+    'social.pipeline.social_auth.associate_by_email',
+    # 'users.pipeline.require_email',
+    'social.pipeline.mail.mail_validation',
+    'social.pipeline.user.create_user',
+    'social.pipeline.social_auth.associate_user',
+    'social.pipeline.social_auth.load_extra_data',
+    'social.pipeline.user.user_details'
+)
+
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/done/'
+LOGOUT_REDIRECT_URL = '/'
+URL_PATH = ''
+SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
+SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
