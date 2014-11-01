@@ -24,7 +24,7 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['www.facebook.com']
 
 
 # Application definition
@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'social.apps.django_app.default',
     'login',
 )
 
@@ -49,11 +50,32 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
+TEMPLATE_CONTEXT_PROCESSORS = (
+   'django.contrib.auth.context_processors.auth',
+   'django.core.context_processors.debug',
+   'django.core.context_processors.i18n',
+   'django.core.context_processors.media',
+   'django.core.context_processors.static',
+   'django.core.context_processors.tz',
+   'django.contrib.messages.context_processors.messages',
+   'social.apps.django_app.context_processors.backends',
+   'social.apps.django_app.context_processors.login_redirect',
+)
+
 ROOT_URLCONF = 'eventhunt.urls'
 
 WSGI_APPLICATION = 'eventhunt.wsgi.application'
 
+AUTHENTICATION_BACKENDS = (
+   'social.backends.facebook.FacebookOAuth2',
+   'social.backends.twitter.TwitterOAuth',
+   'django.contrib.auth.backends.ModelBackend',
+)
 
+LOGIN_URL          = '/login-form/'
+LOGIN_REDIRECT_URL = '/logged-in/'
+LOGIN_ERROR_URL    = '/login-error/'
+FACEBOOK_EXTENDED_PERMISSIONS = ['email']
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
@@ -96,3 +118,6 @@ if DEBUG:
     STATICFILES_DIRS = (
         os.path.join(os.path.dirname(BASE_DIR), 'eventhunt', 'static', 'static'),
     )
+
+SOCIAL_AUTH_FACEBOOK_KEY = '1541142362769349'
+SOCIAL_AUTH_FACEBOOK_SECRET = '1bf4e2e247668af8d6436156ed2d32d6'
