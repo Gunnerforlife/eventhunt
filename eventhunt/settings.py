@@ -81,8 +81,10 @@ SOCIAL_AUTH_PIPELINE = (
     'social.pipeline.social_auth.social_user',
     'social.pipeline.user.get_username',
     'social.pipeline.social_auth.associate_by_email',
-    # 'users.pipeline.require_email',
-    'social.pipeline.mail.mail_validation',
+    #'social.pipeline.user.get_useremail'
+    #'users.pipeline.require_email',
+    #'social_auth.backends.pipeline.user.update_user_details',
+    #'social.pipeline.mail.mail_validation',
     'social.pipeline.user.create_user',
     'social.pipeline.social_auth.associate_user',
     'social.pipeline.social_auth.load_extra_data',
@@ -96,13 +98,16 @@ URL_PATH = ''
 SOCIAL_AUTH_STRATEGY = 'social.strategies.django_strategy.DjangoStrategy'
 SOCIAL_AUTH_STORAGE = 'social.apps.django_app.default.models.DjangoStorage'
 FACEBOOK_EXTENDED_PERMISSIONS = ['email']
+FACEBOOK_PROFILE_EXTRA_PARAMS = {'locale': 'ru_RU'}
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'mydb',
+        'NAME': 'eventhunt',
         'USER': 'persi52',
         'PASSWORD': 'bayern',
         'HOST': '127.0.0.1',

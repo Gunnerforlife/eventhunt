@@ -1,25 +1,14 @@
 {% extends 'base.html' %}
-{% load url from future %}
-{% block login %}
- <p>
-{#   <ul>#}
-{#   {% if user and not user.is_anonymous %}#}
-{#     <li>#}
-{#       <span class='navbar-right'>Hello {{ user.get_full_name|default:user.username }}!</span>#}
-{#     </li>#}
-{#     <li>#}
-{#       <a href="{% url 'auth:logout' %}?next={{ request.path }}">#}
-{#           <button type="submit" class="btn btn-success navbar-right">Sign out</button>#}
-{#       </a>#}
-{#     </li>#}
-{#   {% else %}#}
-{#     <li>#}
-{#       <a href="{% url 'social:begin' 'facebook' %}?next={{ request.path }}">#}
-{#           <button type="submit" class="btn btn-success navbar-right">Sign in</button>#}
-{#       </a>#}
-{#     </li>#}
-{#   {% endif %}#}
-   </ul>
- </p>
+{% block content %}
+ <div class="row">
+   {% for event in events_list %}
+       <div class="col-md-4">
+          <h2>{{event.name}}</h2>
+          <p>{{event.description}}</p>
+          <p><a class="btn btn-default" href="#" role="button">Upvote &raquo;</a></p>
+        </div>
+   {% endfor %}
+
+ </div>
 
 {% endblock %}
