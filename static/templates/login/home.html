@@ -1,14 +1,36 @@
 {% extends 'base.html' %}
 {% block content %}
- <div class="row">
-   {% for event in events_list %}
-       <div class="col-md-4">
-          <h2>{{event.name}}</h2>
-          <p>{{event.description}}</p>
-          <p><a class="btn btn-default" href="#" role="button">Upvote &raquo;</a></p>
-        </div>
-   {% endfor %}
+    <div class="row">
+        {% for event in events_list %}
+            <div class="col-md-4">
+                <h2>{{ event.name }}</h2>
 
- </div>
+                <p>{{ event.description }}</p>
+
+                <p>
+                    <input type="button" id="upvote" name="{{ event.name }}" value="Upvote"/>
+
+                    <script>
+                        $('#upvote').click(function () {
+                            console.log('clicked');
+                            $.ajax({
+                                type: "POST",
+                                url: "{% url 'upvote' %}",
+                                data: {'slug': $(this).attr('name'), 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                                dataType: "text",
+                                success: function (response) {
+                                    alert('You liked this')
+                                },
+                                error: function (rs, e) {
+                                    alert(rs.responseText);
+                                }
+                            });
+                        })
+                    </script>
+                </p>
+            </div>
+        {% endfor %}
+
+    </div>
 
 {% endblock %}

@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     'social.apps.django_app.default',
     'login',
     'event',
+    'eve_upvote',
 )
 
 MIDDLEWARE_CLASSES = (
